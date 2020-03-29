@@ -1,0 +1,35 @@
+FSTAB
+Para el disco A:
+fdisk /dev/sda
+Ahora:
+n (nueva particion)
+p (particion primaria)
+1 (en este caso ponemos 1)
+[enter] (valor defecto)
++5000M (la mitad del disco)
+
+t 
+1
+L (nos lista los tipos de sistemas de archivos)
+83
+w (guardamos cambios)
+
+Creamos el sistema de archivos:
+mkfs -t ext3 /dev/sda1
+Creamos un directorio para montarlo:
+
+mkdir ./Linux
+Editamos la configuracion de fstab:
+
+nano /etc/fstab
+
+/dev/sda1 /Linux ext3 defaults 2 1
+montamos:
+
+mount -t ext3 /dev/sda1 /Linux
+Hacemos los pasos anteriores para la particion FAT 12, cambiando los datos correspondientes y cuando llegamos a elegir el tipo de dato ponemos su codigo
+
+Creamos el sistema de archivos con:
+
+mkdosfs -F 12 /dev/sda2
+Haremos lo mismo con el discoB solo que esta vez no lo montaremos manualmente si no que al insertarlos en el archivo de configuracion de fstab se montarab cada vez que se ejecute el sistema
